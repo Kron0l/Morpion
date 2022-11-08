@@ -1,5 +1,6 @@
-#immport la librairie random
+#import la librairie random
 import random
+#assigner le message de victoire a wiText
 winText="Bravo tu as gagné"
 looseText="Dommage tu as perdu"
 botPlay = "null"
