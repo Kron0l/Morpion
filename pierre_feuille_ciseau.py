@@ -1,3 +1,4 @@
+#immport la librairie random
 import random
 winText="Bravo tu as gagné"
 looseText="Dommage tu as perdu"
