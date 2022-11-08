@@ -1,7 +1,8 @@
 #import la librairie random
 import random
-#assigner le message de victoire a wiText
+#assigner le message de victoire a winText
 winText="Bravo tu as gagné"
+#assigner le message de défaite a looseText
 looseText="Dommage tu as perdu"
 botPlay = "null"
 possiblePlay = ["pierre","feuille","ciseaux"]
