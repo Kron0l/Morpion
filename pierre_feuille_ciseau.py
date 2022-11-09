@@ -4,6 +4,7 @@ import random
 winText="Bravo tu as gagné"
 #assigner le message de défaite a looseText
 looseText="Dommage tu as perdu"
+#assigner la valeur par défaut null a botPlay
 botPlay = "null"
 possiblePlay = ["pierre","feuille","ciseaux"]
 botPlay = random.randint(0,2)
