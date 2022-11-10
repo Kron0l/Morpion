@@ -19,6 +19,22 @@ scorePlayer=0
 #réinitialiser le score du bot
 scoreBot=0
 
+
+
+def victoire(scorePlayer):
+    #afficher le texte de victoire
+    print(winText)
+    #ajouter 1 au score du joueur(scorePlayer) et l'assigner a scorePlayer
+    scorePlayer=scorePlayer+1
+    return scorePlayer
+
+def defaite(scoreBot):
+    #afficher le texte de défaite
+    print(looseText)
+    #ajouter un au score du bot(scoreBot) et l'assigner a scoreBot
+    scoreBot=scoreBot+1
+    return scoreBot
+
 #tant que le joueur n'écrit pas stop
 while playerPlay!="stop" :
     #alors 
@@ -53,30 +69,34 @@ while playerPlay!="stop" :
                 #alors
                 #si c'est l'index de ce que joue le joueur qui vaut 0
                 if playerPlay==0:
+                    scorePlayer=victoire(scorePlayer)
                     #afficher le texte de victoire
-                    print(winText)
+                    #print(winText)
                     #ajouter 1 au score du joueur(scorePlayer) et l'assigner a scorePlayer
-                    scorePlayer=scorePlayer+1
+                    #scorePlayer=scorePlayer+1
                 #sinon : si c'est l'index de ce que joue le bot qui vaut 0
                 else :
+                    scoreBot=defaite(scoreBot)
                     #afficher le texte de défaite
-                    print(looseText)
+                    #print(looseText)
                     #ajouter un au score du bot(scoreBot) et l'assigner a scoreBot
-                    scoreBot=scoreBot+1
+                    #scoreBot=scoreBot+1
             #sinon si l'index de ce que joue le joueur et supérieur a ce que joue le bot
             elif playerPlay>botPlay:
                 #alors
                 #afficher le texte de victoire
-                print(winText)
+                scorePlayer=victoire(scorePlayer)
+                #print(winText)
                 #ajouter 1 au score du joueur(scorePlayer) et l'assigner a scorePlayer
-                scorePlayer=scorePlayer+1
+                #scorePlayer=scorePlayer+1
             #sinon si l'index de ce que joue le bot et supérieur a ce que joue le joueur
             elif playerPlay<botPlay:
                 #alors
+                scoreBot=defaite(scoreBot)
                 #afficher le texte de défaite
-                print(looseText)
+                #print(looseText)
                 #ajouter un au score du bot(scoreBot) et l'assigner a scoreBot
-                scoreBot=scoreBot+1
+                #scoreBot=scoreBot+1
     #afficher ce que joue le joueur
     #print (playerPlay)
     #afficher le score en format "score du joueur : score du bot"
