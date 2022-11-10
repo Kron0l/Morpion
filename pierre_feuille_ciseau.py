@@ -2,12 +2,6 @@
 import random
 #assigner la liste des élément jouables (pierre,feuille,ciseaux) a possiblePlay
 possiblePlay = ["pierre","feuille","ciseaux"]
-#assigner la valeur par défaut neutre a playerPlay
-playerPlay="neutre"
-#réinitialiser le score du joueur
-scorePlayer=0
-#réinitialiser le score du bot
-scoreBot=0
 
 
 
@@ -26,7 +20,10 @@ def defaite(scoreBot):
     return scoreBot
 
 #tant que le joueur n'écrit pas stop
-while playerPlay!="stop" :
+def game(x,y):
+    scorePlayer=x
+    #réinitialiser le score du bot
+    scoreBot=y
     #alors 
     #réinitialiser playerPlay a la valeur neutre
     playerPlay="neutre"
@@ -35,7 +32,7 @@ while playerPlay!="stop" :
     #assigner le nom du coup joué par rapport a botPlay sur la liste possiblePlay
     #botPlayName = possiblePlay[botPlay]
     #tant que le joueur n'a pas joué (valeur playerPlay par défaut("neutre"))
-    while playerPlay=="neutre":
+    while not (playerPlay in (possiblePlay)):
         #alors 
         #afficher ce que joue le bot
         #print (botPlayName)
@@ -91,4 +88,7 @@ while playerPlay!="stop" :
     #print (playerPlay)
     #afficher le score en format "score du joueur : score du bot"
     print(scorePlayer,":",scoreBot)
+    while playerPlay!="stop" :
+        game(scorePlayer,scoreBot)
+game(0,0)
      
