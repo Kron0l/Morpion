@@ -1,17 +1,7 @@
 #import la librairie random
 import random
-#assigner le message de victoire a winText
-winText="Bravo tu as gagné"
-#assigner le message de défaite a looseText
-looseText="Dommage tu as perdu"
-#assigner la valeur par défaut null a botPlay
-botPlay = "null"
 #assigner la liste des élément jouables (pierre,feuille,ciseaux) a possiblePlay
 possiblePlay = ["pierre","feuille","ciseaux"]
-#assigner une valeur aléatoire de 0 à 2
-botPlay = random.randint(0,2)
-#assigner le nom du coup joué par rapport a botPlay sur la liste possiblePlay
-#botPlayName = possiblePlay[botPlay]
 #assigner la valeur par défaut neutre a playerPlay
 playerPlay="neutre"
 #réinitialiser le score du joueur
@@ -23,14 +13,14 @@ scoreBot=0
 
 def victoire(scorePlayer):
     #afficher le texte de victoire
-    print(winText)
+    print("Bravo tu as gagné")
     #ajouter 1 au score du joueur(scorePlayer) et l'assigner a scorePlayer
     scorePlayer=scorePlayer+1
     return scorePlayer
 
 def defaite(scoreBot):
     #afficher le texte de défaite
-    print(looseText)
+    print("Dommage tu as perdu")
     #ajouter un au score du bot(scoreBot) et l'assigner a scoreBot
     scoreBot=scoreBot+1
     return scoreBot
