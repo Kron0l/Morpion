@@ -1,104 +1,87 @@
-#import la librairie random
+#on considère la librairie random qui permet de tirer un nombre aléatoire
 import random
-#assigner le message de victoire a winText
-winText="Bravo tu as gagné"
-#assigner le message de défaite a looseText
-looseText="Dommage tu as perdu"
-#assigner la valeur par défaut null a botPlay
-botPlay = "null"
 #assigner la liste des élément jouables (pierre,feuille,ciseaux) a possiblePlay
 possiblePlay = ["pierre","feuille","ciseaux"]
-#assigner une valeur aléatoire de 0 à 2
-botPlay = random.randint(0,2)
-#assigner le nom du coup joué par rapport a botPlay sur la liste possiblePlay
-#botPlayName = possiblePlay[botPlay]
-#assigner la valeur par défaut neutre a playerPlay
-playerPlay="neutre"
-#réinitialiser le score du joueur
-scorePlayer=0
-#réinitialiser le score du bot
-scoreBot=0
 
 
-
+#définir la fonction victoire
 def victoire(scorePlayer):
-    #afficher le texte de victoire
-    print(winText)
-    #ajouter 1 au score du joueur(scorePlayer) et l'assigner a scorePlayer
+    #afficher le texte de victoire (Bravo tu as gagné)
+    print("Bravo tu as gagné")
+    #incrémenter scorePlayer de 1
     scorePlayer=scorePlayer+1
+    #retourner scorePlayer
     return scorePlayer
 
+#définir la fonction défaite
 def defaite(scoreBot):
-    #afficher le texte de défaite
-    print(looseText)
-    #ajouter un au score du bot(scoreBot) et l'assigner a scoreBot
+    #afficher le texte de défaite (Dommage tu as perdu)
+    print("Dommage tu as perdu")
+    #incrémenter scoreBot de 1
     scoreBot=scoreBot+1
+    #retourner scoreBot
     return scoreBot
 
-#tant que le joueur n'écrit pas stop
-while playerPlay!="stop" :
-    #alors 
-    #réinitialiser playerPlay a la valeur neutre
-    playerPlay="neutre"
+#définir la fonction game utilisant les paramètre x et y
+def game(x,y):
+    #assigner la valeur de x a scorePlayer
+    scorePlayer=x
+    #assigner la valeur de y a scoreBot
+    scoreBot=y
+    #réinitialiser playerPlayName en lui assignant la valeur "neutre"
+    playerPlayName="neutre"
     #assigner une nouvelle valeur aléatoire entre 0 et 2 a botPlay
     botPlay = random.randint(0,2)
-    #assigner le nom du coup joué par rapport a botPlay sur la liste possiblePlay
-    #botPlayName = possiblePlay[botPlay]
-    #tant que le joueur n'a pas joué (valeur playerPlay par défaut("neutre"))
-    while playerPlay=="neutre":
+    #tant que la valeur de playerName n'est pas dans la liste possiblePlay (tant que le joueur ne joue pas quelque chose de correct)
+    while not (playerPlayName in (possiblePlay)):
         #alors 
-        #afficher ce que joue le bot
-        #print (botPlayName)
-        #demander au joueur de jouer et assigner ce qui a été joué a playerPlay
-        playerPlay = input("Que joues-tu ?")
-    #si le joueur n'a pas joué stop
-    if playerPlay!="stop" :
+        #demander au joueur "Que joues-tu ?" et assigner cette valeur a playerPlayName
+        playerPlayName = input("Que joues-tu ?")
+    #si playerPlayName et différent de stop
+    if playerPlayName!="stop" :
         #alors
-        #trouver dans la liste possiblePlay a quelle position se situe ce qu'a joué le joueur et l'asssigner a playerPlay
-        playerPlay = possiblePlay.index(playerPlay)
-        #si ce que joue le joueur est égal a ce que joue le bot
+        #trouver dans la liste possiblePlay a quelle position se situe la valeur de playerPlayName et l'assigner a playerPlay
+        playerPlay = possiblePlay.index(playerPlayName)
+        #si la valeur de playerPlay est égale a celle de botPlay
         if playerPlay == botPlay :
             #alors
             #afficher Égalité
             print("Égalité")
-        #sinon : le joueur ne joue pas la même chose que le bot
+        #sinon : la valeur de playerPlay est diffe=érente de celle de botPlay
         else :
             #alors
-            #si la différence de l'index que joue le joueur et de l'index de ce que joue le bot vaut 2 ou inversement(pierre/ciseaux ou ciseaux/pierre)
+            #si la différence playerPlay et botPlay vaut 2 ou inversement (pierre/ciseaux ou ciseaux/pierre)
             if playerPlay-botPlay==2 or botPlay-playerPlay==2:
                 #alors
-                #si c'est l'index de ce que joue le joueur qui vaut 0
+                #si la valeur de playerPlay vaut 0 (pierre)
                 if playerPlay==0:
+                    #alors
+                    #récupérer la valeur retourner par la fonction victoire avec le paramètre scorePlayer et l'assigner a scorePlayer
                     scorePlayer=victoire(scorePlayer)
-                    #afficher le texte de victoire
-                    #print(winText)
-                    #ajouter 1 au score du joueur(scorePlayer) et l'assigner a scorePlayer
-                    #scorePlayer=scorePlayer+1
-                #sinon : si c'est l'index de ce que joue le bot qui vaut 0
+                #sinon : si la valeur de botPlay vaut 0
                 else :
+                    #alors
+                    #récuupérer la valeur retourner par la fonction défaite avec le paramètre scoreBot et l'assigner a scoreBot
                     scoreBot=defaite(scoreBot)
-                    #afficher le texte de défaite
-                    #print(looseText)
-                    #ajouter un au score du bot(scoreBot) et l'assigner a scoreBot
-                    #scoreBot=scoreBot+1
-            #sinon si l'index de ce que joue le joueur et supérieur a ce que joue le bot
+            #sinon si la valeur de playerPlay est supérieur a celle de botPlay (feuille>pierre ou ciseaux>feuille)
             elif playerPlay>botPlay:
                 #alors
-                #afficher le texte de victoire
+                #récupérer la valeur retourner par la fonction victoire avec le paramètre scorePlayer et l'assigner a scorePlayer
                 scorePlayer=victoire(scorePlayer)
-                #print(winText)
-                #ajouter 1 au score du joueur(scorePlayer) et l'assigner a scorePlayer
-                #scorePlayer=scorePlayer+1
-            #sinon si l'index de ce que joue le bot et supérieur a ce que joue le joueur
+            #sinon si la valeur de playerPlay est inférieur a celle de botPlay (pierre<feuille ou feuille<ciseux)
             elif playerPlay<botPlay:
                 #alors
+                #récuupérer la valeur retourner par la fonction défaite avec le paramètre scoreBot et l'assigner a scoreBot
                 scoreBot=defaite(scoreBot)
-                #afficher le texte de défaite
-                #print(looseText)
-                #ajouter un au score du bot(scoreBot) et l'assigner a scoreBot
-                #scoreBot=scoreBot+1
-    #afficher ce que joue le joueur
-    #print (playerPlay)
-    #afficher le score en format "score du joueur : score du bot"
+    #afficher le score en affichant scorePlayer puis ":" puis scoreBot
     print(scorePlayer,":",scoreBot)
+    #si playerPlayName et différent de stop
+    if playerPlayName!="stop" :
+        #alors
+        #exécuter la fonction game avec comme premier paramètre scorePlayer et en second scoreBot 
+        game(scorePlayer,scoreBot)
+
+
+#exécuter la fonction game avec comme premier paramètre 0 et en second 0 
+game(0,0)
      
