@@ -23,6 +23,7 @@
     #si playerPlayName et différent de stop
         #alors
         #trouver dans la liste possiblePlay a quelle position se situe la valeur de playerPlayName et l'assigner a playerPlay
+        #afficher ce qu'a joué le bot en affichant "Votre adversaire a joué" et l'objet correspondant a botPlay dans la liste possiblePlay
         #si la valeur de playerPlay est égale a celle de botPlay
             #alors
             #afficher Égalité
