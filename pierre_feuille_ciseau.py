@@ -42,6 +42,8 @@ def game(x,y):
         #alors
         #trouver dans la liste possiblePlay a quelle position se situe la valeur de playerPlayName et l'assigner a playerPlay
         playerPlay = possiblePlay.index(playerPlayName)
+        #afficher ce qu'a joué le bot en affichant "Votre adversaire a joué" et l'objet correspondant a botPlay dans la liste possiblePlay
+        print("Votre adversaire a joué",possiblePlay[botPlay] )
         #si la valeur de playerPlay est égale a celle de botPlay
         if playerPlay == botPlay :
             #alors
