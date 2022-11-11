@@ -1,7 +1,7 @@
 #import la librairie random
 import random
 #assigner la liste des élément jouables (pierre,feuille,ciseaux) a possiblePlay
-possiblePlay = ["pierre","feuille","ciseaux"]
+possiblePlay = ["pierre","feuille","ciseaux","stop"]
 
 
 
@@ -26,23 +26,23 @@ def game(x,y):
     scoreBot=y
     #alors 
     #réinitialiser playerPlay a la valeur neutre
-    playerPlay="neutre"
+    playerPlayName="neutre"
     #assigner une nouvelle valeur aléatoire entre 0 et 2 a botPlay
     botPlay = random.randint(0,2)
     #assigner le nom du coup joué par rapport a botPlay sur la liste possiblePlay
     #botPlayName = possiblePlay[botPlay]
     #tant que le joueur n'a pas joué (valeur playerPlay par défaut("neutre"))
-    while not (playerPlay in (possiblePlay)):
+    while not (playerPlayName in (possiblePlay)):
         #alors 
         #afficher ce que joue le bot
         #print (botPlayName)
         #demander au joueur de jouer et assigner ce qui a été joué a playerPlay
-        playerPlay = input("Que joues-tu ?")
+        playerPlayName = input("Que joues-tu ?")
     #si le joueur n'a pas joué stop
-    if playerPlay!="stop" :
+    if playerPlayName!="stop" :
         #alors
         #trouver dans la liste possiblePlay a quelle position se situe ce qu'a joué le joueur et l'asssigner a playerPlay
-        playerPlay = possiblePlay.index(playerPlay)
+        playerPlay = possiblePlay.index(playerPlayName)
         #si ce que joue le joueur est égal a ce que joue le bot
         if playerPlay == botPlay :
             #alors
@@ -88,7 +88,8 @@ def game(x,y):
     #print (playerPlay)
     #afficher le score en format "score du joueur : score du bot"
     print(scorePlayer,":",scoreBot)
-    while playerPlay!="stop" :
+    if playerPlayName!="stop" :
         game(scorePlayer,scoreBot)
+
 game(0,0)
      
