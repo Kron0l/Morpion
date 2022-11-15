@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import *
 
-fen_princ = Tk()
 root = tk.Tk()
 cell_size = 200
 board_size = 3
@@ -105,7 +104,7 @@ def rond(cell):
 
 
 def draw(cell,tableau):
-    global flag,victoire,monTexte
+    global flag,victoire
     if flag : 
         if len(tableau [cell[0]][cell[1]])==2:
             croix(cell)
@@ -118,26 +117,27 @@ def draw(cell,tableau):
     if victoire!="neutre":
         if victoire=="égalité":
             # Création d'un Label nommé monAffichage ayant monTexte comme textvariable
-            monAffichage = Label(root, text='monTexte', width=35)
+            monAffichage = Label(root, text='Égalité',font=("Courrier",30), width=0, fg ='#FF6200')
             monAffichage.pack()
-            # Création d'un Button lancant la fonction mise_a_jour
-            monBouton = Button(root, text="BOUTON 1", command=lol)
-            monBouton.pack()
-            # Création d'un Button lancant la fonction mise_a_jour2
-            monBouton2 = Button(root, text="BOUTON 2", command=lol)
-            monBouton2.pack()
-            fen_princ.mainloop()
+            
         else:
-            tk.messagebox.showinfo("Victoire",("Les " + victoire + " ont gangnés\n"))
-        victoire="neutre"
-        canvas.delete(ALL)
-        fenetre()   
-        initTableau()
-
+            # Création d'un Label nommé monAffichage ayant monTexte comme textvariable
+            monAffichage = Label(root, text="Les gagnat sont les "+victoire,font=("Courrier",30), width=0, fg ='#FF6200')
+            monAffichage.pack()
+        # Création d'un Button lancant la fonction mise_a_jour
+        monBouton = Button(root, text="Réinitialiser", command=reinit)
+        monBouton.pack()
+        # Création d'un Button lancant la fonction mise_a_jour2
+        monBouton2 = Button(root, text="BOUTON 2", command=quit)
+        monBouton2.pack()
     print(tableau)
     
-def lol():
-    print("lol")
+def reinit():
+    global victoire
+    victoire="neutre"
+    canvas.delete(ALL)
+    fenetre()   
+    initTableau()
 
 
 def afficher(event) :
