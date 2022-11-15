@@ -12,6 +12,9 @@ insert_rond = ('O',)
 insert_croix = ('X',)
 flag=True
 
+
+
+
 victoire="neutre"
 
 def initTableau():
@@ -102,7 +105,7 @@ def rond(cell):
 
 
 def draw(cell,tableau):
-    global flag,victoire
+    global flag,victoire,monTexte
     if flag : 
         if len(tableau [cell[0]][cell[1]])==2:
             croix(cell)
@@ -114,18 +117,25 @@ def draw(cell,tableau):
     analyse()
     if victoire!="neutre":
         if victoire=="égalité":
-            monBouton = Button(fen_princ, text="BOUTON 1", command=lol())
+            # Création d'un Label nommé monAffichage ayant monTexte comme textvariable
+            monAffichage = Label(root, text='monTexte', width=35)
+            monAffichage.pack()
+            # Création d'un Button lancant la fonction mise_a_jour
+            monBouton = Button(root, text="BOUTON 1", command=lol)
             monBouton.pack()
+            # Création d'un Button lancant la fonction mise_a_jour2
+            monBouton2 = Button(root, text="BOUTON 2", command=lol)
+            monBouton2.pack()
+            fen_princ.mainloop()
         else:
             tk.messagebox.showinfo("Victoire",("Les " + victoire + " ont gangnés\n"))
         victoire="neutre"
         canvas.delete(ALL)
-        fenetre()   # Efface toutes les figures
+        fenetre()   
         initTableau()
 
     print(tableau)
     
-
 def lol():
     print("lol")
 
