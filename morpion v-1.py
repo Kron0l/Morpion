@@ -1,6 +1,5 @@
 import tkinter as tk
 
-
 root = tk.Tk()
 cell_size = 200
 board_size = 3
