@@ -1,5 +1,8 @@
 import tkinter as tk
+from tkinter import messagebox
+from tkinter import *
 
+fen_princ = Tk()
 root = tk.Tk()
 cell_size = 200
 board_size = 3
@@ -11,13 +14,26 @@ flag=True
 
 victoire="neutre"
 
-c=[1,2,3]
-l=[1,2,3]
-tableau=[[(l[x],c[y]) for y in range (3)]for x in range(3)]
-tableAnalyse=["_" for i in range(9)]
+def initTableau():
+    global tableau,tableAnalyse
+    c=[1,2,3]
+    l=[1,2,3]
+    tableau=[[(l[x],c[y]) for y in range (3)]for x in range(3)]
+    tableAnalyse=["_" for i in range(9)]
 
+def fenetre():
+    for x in range(board_size):
+        for y in range(board_size):
+            canvas.create_rectangle(
+                        y * cell_size,
+                        x * cell_size,
+                        y * cell_size + cell_size,
+                        x * cell_size + cell_size,
+                    )
 
 canvas = tk.Canvas(root, width=canvas_size, height=canvas_size)
+fenetre()
+initTableau()
 canvas.pack()
 
 
@@ -66,6 +82,8 @@ def analyse():
         victoire='O'
     if tableAnalyse[1]=='O' and tableAnalyse[4]=='O' and tableAnalyse[7]=='O':
         victoire='O'
+    if tableAnalyse.count("_")==0:
+        victoire = "égalité"
     print(tableAnalyse)
     print(victoire)
 
@@ -85,42 +103,47 @@ def rond(cell):
 
 def draw(cell,tableau):
     global flag,victoire
-    if victoire=="neutre":
-        if flag : 
-            if len(tableau [cell[0]][cell[1]])==2:
-                croix(cell)
-                flag=not(flag)    
+    if flag : 
+        if len(tableau [cell[0]][cell[1]])==2:
+            croix(cell)
+            flag=not(flag)    
+    else:
+        if len(tableau [cell[0]][cell[1]])==2:
+            rond(cell)
+            flag=not(flag)
+    analyse()
+    if victoire!="neutre":
+        if victoire=="égalité":
+            monBouton = Button(fen_princ, text="BOUTON 1", command=lol())
+            monBouton.pack()
         else:
-            if len(tableau [cell[0]][cell[1]])==2:
-                rond(cell)
-                flag=not(flag)
-        analyse()
+            tk.messagebox.showinfo("Victoire",("Les " + victoire + " ont gangnés\n"))
+        victoire="neutre"
+        canvas.delete(ALL)
+        fenetre()   # Efface toutes les figures
+        initTableau()
+
     print(tableau)
     
 
-
+def lol():
+    print("lol")
 
 
 def afficher(event) :
+    global victoire
     """Cette fonction affiche en temps réel les coordonnées de la souris
     obtenues par « event.x » et « event.y ».
     La zone de texte est mise à jour grâce à la méthode .configure()."""
-    abscisse = event.x
-    ordonnee = event.y
-    cell=[int (abscisse / cell_size), int (ordonnee/cell_size)]
-    print (abscisse,ordonnee,cell)
-    draw(cell,tableau)
+    if victoire=="neutre":
+        abscisse = event.x
+        ordonnee = event.y
+        cell=[int (abscisse / cell_size), int (ordonnee/cell_size)]
+        print (abscisse,ordonnee,cell)
+        draw(cell,tableau)
 
 
 
-for x in range(board_size):
-    for y in range(board_size):
-        canvas.create_rectangle(
-                    y * cell_size,
-                    x * cell_size,
-                    y * cell_size + cell_size,
-                    x * cell_size + cell_size,
-                )
 
 
 
