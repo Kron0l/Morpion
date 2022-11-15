@@ -2,7 +2,7 @@ import tkinter as tk
 
 root = tk.Tk()
 cell_size = 200
-board_size = 9
+board_size = 3
 canvas_size = cell_size * board_size
 flag=True
 
@@ -65,4 +65,3 @@ for x in range(board_size):
 
 canvas.bind('<Button-1>', afficher)
 root.mainloop()
-
