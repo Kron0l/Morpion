@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import *
+import time
 
 root = tk.Tk()
 cell_size = 200
@@ -84,7 +85,7 @@ def analyse():
         victoire='O'
     if tableAnalyse[1]=='O' and tableAnalyse[4]=='O' and tableAnalyse[7]=='O':
         victoire='O'
-    if tableAnalyse.count("_")==0:
+    if tableAnalyse.count("_")==0 and victoire=="neutre":
         victoire = "égalité"
     print(tableAnalyse)
     print(victoire)
@@ -115,23 +116,35 @@ def draw(cell,tableau):
             flag=not(flag)
     analyse()
     if victoire!="neutre":
-        if victoire=="égalité":
+        fen_princ = Tk()
+        if victoire!="égalité":
             # Création d'un Label nommé monAffichage ayant monTexte comme textvariable
-            monAffichage = Label(root, text='Égalité',font=("Courrier",30), width=0, fg ='#FF6200')
+            monAffichage = Label(fen_princ, text="Les gagnat sont les "+victoire,font=("Courrier",30), width=0, fg ='#FF6200')
             monAffichage.pack()
+            # Création d'un Button lancant la fonction mise_a_jour
+            monBouton = Button(fen_princ, text="Réinitialiser", command=lambda:[reinit(),fen_princ.destroy()])
+            monBouton.pack()
+            
+            # Création d'un Button lancant la fonction mise_a_jour2
+            monBouton2 = Button(fen_princ, text="Quitter", command=quit)
+            monBouton2.pack()
             
         else:
             # Création d'un Label nommé monAffichage ayant monTexte comme textvariable
-            monAffichage = Label(root, text="Les gagnat sont les "+victoire,font=("Courrier",30), width=0, fg ='#FF6200')
+            monAffichage = Label(fen_princ, text="Égalité",font=("Courrier",30), width=0, fg ='#FF6200')
             monAffichage.pack()
-        # Création d'un Button lancant la fonction mise_a_jour
-        monBouton = Button(root, text="Réinitialiser", command=reinit)
-        monBouton.pack()
-        # Création d'un Button lancant la fonction mise_a_jour2
-        monBouton2 = Button(root, text="BOUTON 2", command=quit)
-        monBouton2.pack()
+            # Création d'un Button lancant la fonction mise_a_jour
+            monBouton = Button(fen_princ, text="Réinitialiser", command=lambda:[reinit(),fen_princ.destroy()])
+            monBouton.pack()
+            # Création d'un Button lancant la fonction mise_a_jour2
+            monBouton2 = Button(fen_princ, text="Quitter", command=quit)
+            monBouton2.pack()
+
+        
     print(tableau)
-    
+
+
+
 def reinit():
     global victoire
     victoire="neutre"
@@ -151,11 +164,6 @@ def afficher(event) :
         cell=[int (abscisse / cell_size), int (ordonnee/cell_size)]
         print (abscisse,ordonnee,cell)
         draw(cell,tableau)
-
-
-
-
-
 
 print (tableau)
 print (tableAnalyse)
