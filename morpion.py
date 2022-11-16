@@ -8,58 +8,59 @@ from tkinter import *
 
 
 root = tk.Tk()
-#assigner la taille des cellules à cell_size
-cell_size = 200
+#assigner la taille des cellules à cellSize
+cellSize = 200
 #assigner le nombre de cellule composant la largeur et la longueur du tableau (3 pour un morpion normale)
-board_size = 3
-#créer canvas_size contenant la taille de la fenêtre principale
-canvas_size = cell_size * board_size
+boardSize = 3
+#créer canvasSize contenant la taille de la fenêtre principale
+canvasSize = cellSize * boardSize
 
-#créer un tuple nommé insert_rond contenant ('O',)
-insert_rond = ('O',)
-#créer un tuple nommé insert_croix contenant ('X',)
-insert_croix = ('X',)
+
 #créer flag contenant True
 flag=True
 
+
 #créer victoire contenant "neutre"
 victoire="neutre"
+#créer tour contenant 0
+tour=0
+#assigner "red" à crossColor
+crossColor="red"
+#assigner "blue" à sphereColor
+sphereColor="blue"
 
 
-#définir la fonction initTableau qui permet de créer deux tableaux dans le terminal
+
+#définir la fonction initTableau qui permet de créer tableaAnalyse
 def initTableau():
 
-    #récupérer tableau et tableAnalyse grâce à la fonction global
-    global tableau,tableAnalyse
+    #récupérer tableAnalyse grâce à la fonction global
+    global tableAnalyse
 
-    #créer la liste c contenant les terme 1,2,3
-    c=[1,2,3]
-    #créer la liste l contenant les terme 1,2,3
-    l=[1,2,3]
-    #créer une liste nommée tableau contenant les coordonnées de chaque cellules grâce à la liste l et la liste c
-    tableau=[[(l[x],c[y]) for y in range (3)]for x in range(3)]
-    #créer une liste nommée tableAnalyse contenant 9 fois "_"
-    tableAnalyse=["_" for i in range(9)]
+    #créer une liste nommée tableAnalyse contenant [[0,0,0],[0,0,0],[0,0,0]]
+    tableAnalyse=[[0,0,0]
+                 ,[0,0,0]
+                 ,[0,0,0]]
 
 
 
 #définir la fonction fenêtre qui permet de remplir la fenêtre principale avec la grille de morpion
 def fenetre():
     
-    #pour x de 0 à board_size
-    for x in range(board_size):
+    #pour x de 0 à boardSize
+    for x in range(boardSize):
 
         #alors
-        #pour y de 0 à board_size
-        for y in range(board_size):
+        #pour y de 0 à boardSize
+        for y in range(boardSize):
 
-            #créer un rectangle ayant comme points opposés : y * cell_size; x * cell_size et y * cell_size + cell_size; x * cell_size + cell_size,
+            #créer un rectangle ayant comme points opposés : y * cellSize; x * cellSize et y * cellSize + cellSize; x * cellSize + cellSize,
             canvas.create_rectangle(
                         
-                        y * cell_size,
-                        x * cell_size,
-                        y * cell_size + cell_size,
-                        x * cell_size + cell_size,
+                        y * cellSize,
+                        x * cellSize,
+                        y * cellSize + cellSize,
+                        x * cellSize + cellSize,
                         
                     )
 
@@ -68,13 +69,15 @@ def fenetre():
 def reinit():
 
     #récupérer la variable victoire grâce à la fonction global
-    global victoire
+    global victoire,tour
     
+    #assigner 0 à tour
+    tour=0
     #assigner la valeur "neutre" à la variable victoire
     victoire="neutre"
     #supprimer tous les dessin de la page principale
     canvas.delete(ALL)
-    #invoquer la fonction fenêtre
+    #invoquer la fonction fenetre
     fenetre()   
     #invoquer la fonction initTableau
     initTableau()
@@ -83,196 +86,142 @@ def reinit():
 #définir la fonction croix contenant le paramètre cell et permettant de faire le dessin d'une croix
 def croix(cell):
 
-    #créer une des 2 diagonales de la croix par rapport a cell et cell_size
-    canvas.create_line(cell[0] * cell_size + 10, cell[1] * cell_size + 10, (cell[0] + 1) * cell_size - 10, (cell[1] + 1) * cell_size - 10, width = 5, fill = "red")
-    #créer l'autre diagonale de la croix par rapport a cell et cell_size
-    canvas.create_line(cell[0] * cell_size + 10, (cell[1] + 1) * cell_size - 10, (cell[0] + 1) * cell_size - 10, cell[1] * cell_size + 10, width = 5, fill = "red")
-    #insérer insert_croix dans le tableau en position cell[0]][cell[1]
-    tableau[cell[0]][cell[1]]=tableau[cell[0]][cell[1]]+insert_croix
-    #écrire tbleau dans le terminal
-    print("tableau",tableau[cell[0]][cell[1]])
+    #récupérer tour grâce à la fonction global
+    global tour
+
+    #créer une des 2 diagonales de la croix d'épaisseur 5 et de couleur crossColor par rapport a cell et cellSize
+    canvas.create_line(cell[0] * cellSize + 10, cell[1] * cellSize + 10, (cell[0] + 1) * cellSize - 10, (cell[1] + 1) * cellSize - 10, width = 5, fill = crossColor)
+    #créer l'autre diagonale de la croix d'épaisseur 5 et de couleur crossColor par rapport a cell et cellSize
+    canvas.create_line(cell[0] * cellSize + 10, (cell[1] + 1) * cellSize - 10, (cell[0] + 1) * cellSize - 10, cell[1] * cellSize + 10, width = 5, fill = crossColor)
+    #insérer 1 dans tableAnalyse en position [cell[0]][cell[1]]
+    tableAnalyse[cell[0]][cell[1]]=1
+    #incrémenter tour de 1
+    tour=tour+1
 
 
 
 #définir la fonction rond ayant comme paramètre cell et permettant de déssiner un rond
 def rond(cell):
 
-    #créer un oval par rapport à cell et cell_size
-    canvas.create_oval (cell[0] *cell_size+10, cell[1] * cell_size + 10, (cell[0] + 1) * cell_size - 10, (cell[1] + 1) * cell_size - 10, width = 5, outline="blue")
-    #insérer insert_rond dans le tableau en position cell[0]][cell[1]
-    tableau[cell[0]][cell[1]]=tableau[cell[0]][cell[1]]+insert_rond
-    #écrire tbleau dans le terminal
-    print("tableau",tableau[cell[0]][cell[1]])
+    global tour
+
+    #créer un oval d'épaisseur 5 et de couleur spherreColor par rapport à cell et cellSize
+    canvas.create_oval (cell[0] *cellSize+10, cell[1] * cellSize + 10, (cell[0] + 1) * cellSize - 10, (cell[1] + 1) * cellSize - 10, width = 5, outline=sphereColor)
+    #insérer -1 dans tableAnalyse en position [cell[0]][cell[1]]
+    tableAnalyse[cell[0]][cell[1]]=-1
+    #incrémenter tour de 1
+    tour=tour+1
 
 
 
-#définir la fonction analyse permettant de faire ue analyse de chaque cellule dut tableau et donner la victoire si nécessaire
+#définir la fonction analyse permettant de faire ue analyse de chaque cellule du tableau et donner la victoire si nécessaire
 def analyse():
 
-    global tableau,tableAnalyse,victoire
+    #récupérer tableAnalyse et victoire grâce à la fonction global
+    global tableAnalyse,victoire
 
-    for x in range (3):
+    #créer la liste winAnalyse contenant [0,0,0,0,0,0,0,0] (liste des analyses)
+    winAnalyse = [0,0,0,0,0,0,0,0]
 
-        for y in range (3):
+    """analyse de chaque ligne"""
+    #faire la somme des cellules composant la première ligne du tableau et l'assigner à la première valeur de winAnalyse
+    winAnalyse[0] = sum(tableAnalyse[0])
+    #faire la somme des cellules composant la seconde ligne du tableau et l'assigner à la seconde valeur de winAnalyse
+    winAnalyse[1] = sum(tableAnalyse[1])
+    #faire la somme des cellules composant la troisième ligne du tableau et l'assigner à la troisième valeur de winAnalyse
+    winAnalyse[2] = sum(tableAnalyse[2])
 
-            if tableau[x][y].count('X')==1:
+    """analyse de chaque colonnes"""
+    #faire la somme des cellules composant la première colonne et l'assigner à la quatrième valeur de winAnalyse
+    winAnalyse[3] = tableAnalyse[0][0]+tableAnalyse[1][0]+tableAnalyse[2][0]
+    #faire la somme des cellules composant la seconde colonne et l'assigner à la cinquième valeur de winAnalyse
+    winAnalyse[4] = tableAnalyse[0][1]+tableAnalyse[1][1]+tableAnalyse[2][1]
+    #faire la somme des cellules composant la troisième colonne et l'assigner à la sixième valeur de winAnalyse
+    winAnalyse[5] = tableAnalyse[0][2]+tableAnalyse[1][2]+tableAnalyse[2][2]
 
-                tableAnalyse[x+y*3]='X'
-
-            elif tableau[x][y].count('O')==1:
-
-                tableAnalyse[x+y*3]='O'
-
-    if tableAnalyse[0]=='X':
+    """analyse de chaque diagonales"""
+    #faire la somme des cellules composant la première diagonale et l'assigner à la septième valeur de winAnalyse
+    winAnalyse[6] = tableAnalyse[0][0]+tableAnalyse[1][1]+tableAnalyse[2][2]
+    #faire la somme des cellules composant la seconde diagonale et l'assigner à la huitième valeur de winAnalyse
+    winAnalyse[7] = tableAnalyse[0][2]+tableAnalyse[1][1]+tableAnalyse[2][0]
+        
     
-    
-        if tableAnalyse[1]=='X' and tableAnalyse[2]=='X':
-            
-            victoire='X'
-            
-        elif tableAnalyse[3]=='X' and tableAnalyse[6]=='X':
-            
-            victoire='X'
-            
-        elif tableAnalyse[4]=='X' and tableAnalyse[8]=='X':
-            
-            victoire='X'
-            
-    if tableAnalyse[2]=='X':
-        
-        if tableAnalyse[5]=='X' and tableAnalyse[8]=='X':
-            
-            victoire='X'
-            
-        elif tableAnalyse[4]=='X' and tableAnalyse[6]=='X':
-            
-            victoire='X'
-            
-    if tableAnalyse[3]=='X' and tableAnalyse[4]=='X' and tableAnalyse[5]=='X':
-        
-        victoire='X'
-        
-    if tableAnalyse[6]=='X' and tableAnalyse[7]=='X' and tableAnalyse[8]=='X':
-        
-        victoire='X'
-        
-    if tableAnalyse[1]=='X' and tableAnalyse[4]=='X' and tableAnalyse[7]=='X':
-        
-        victoire='X'
-    
-
-    if tableAnalyse[0]=='O':
-        
-        if tableAnalyse[1]=='O' and tableAnalyse[2]=='O':
-            
-            victoire='O'
-            
-        elif tableAnalyse[3]=='O' and tableAnalyse[6]=='O':
-            
-            victoire='O'
-            
-        elif tableAnalyse[4]=='O' and tableAnalyse[8]=='O':
-            
-            victoire='O'
-            
-    if tableAnalyse[2]=='O':
-        
-        if tableAnalyse[5]=='O' and tableAnalyse[8]=='O':
-            
-            victoire='O'
-            
-        elif tableAnalyse[4]=='O' and tableAnalyse[6]=='O':
-            
-            victoire='O'
-            
-    if tableAnalyse[3]=='O' and tableAnalyse[4]=='O' and tableAnalyse[5]=='O':
-        
-        victoire='O'
-        
-    if tableAnalyse[6]=='O' and tableAnalyse[7]=='O' and tableAnalyse[8]=='O':
-        
-        victoire='O'
-        
-    if tableAnalyse[1]=='O' and tableAnalyse[4]=='O' and tableAnalyse[7]=='O':
-        
-        victoire='O'
-        
-    if tableAnalyse.count("_")==0 and victoire=="neutre":
-        
-        victoire = "égalité"
-        
-    print(tableAnalyse)
-    print(victoire)
+    #si tour est iférieur ou égal à 9
+    if tour <= 9:
+        #alors
+        #pour i entre 0 et 7 compris
+        for i in range(8):
+            #alors
+            #si la valeur en position [i] dans winAnalyse est égale à 3
+            if winAnalyse[i] == 3:
+                #alors
+                #assigner "croix" à victoire
+                victoire="croix"
+            #sinon si la valeur en position [i] dans winAnalyse est égale à -3
+            elif winAnalyse[i] == -3:
+                #alors
+                #assigner "rond" à victoire
+                victoire="rond"
+            #sinon si tour est égal à 9 et victoire est égale à "neutre"
+            elif tour == 9 and victoire =="neutre":
+                #alors
+                #assigner égalité à victoire
+                victoire = "égalité"
+                    
 
 
 
-#définir game avec les paramètre cell et tableau
-def game(cell,tableau):
+#définir game avec les paramètre cell
+def game(cell):
 
     #récupérer flag et victoire grâce a la fonction global
     global flag,victoire
-
-    #si flag
-    if flag : 
-
+    
+    #si la position [cell[0]][cell[1]] de tableAnalyse est égale à 0
+    if tableAnalyse[cell[0]][cell[1]]==0:
         #alors
-        #si la longueur de tableau en position [cell[0]][cell[1]] est égale à 2
-        if len(tableau [cell[0]][cell[1]])==2:
-            
+        #si flag
+        if flag :
+            #alors
             #invoquer la fonction croix avec le paramètre cell
             croix(cell)
             #inverser la valeur de flag
-            flag=not(flag)   
-
-    #sinon
-    else:
-        
-        #alors
-        #si la longueur de tableau e position [cell[0]][cell[1]] est égale à 2
-        if len(tableau [cell[0]][cell[1]])==2:
-
+            flag=not(flag)
+        #sinon
+        else:
+            #alors
             #invoquer la fonction rond avec le paramètre cell
             rond(cell)
             #inverser la valeur de flag
             flag=not(flag)
-
     #invoquer la fonction analyse
     analyse()
 
-
     #si victoire est différent de "neutre"
     if victoire!="neutre":
-        
         #alors
         #ouvrir une nouvelle fenêtre
-        fen_princ = Tk()
-
+        fenPrinc = Tk()
         #si victoire est différent de "égalité"
         if victoire!="égalité":
-
             #alors
-            #afficher "Les gagnant sont les " victoire en police courrier de taille 30 et de couleur '#FF6200' (orange)
-            monAffichage = Label(fen_princ, text="Les gagnat sont les "+victoire,font=("Courrier",30), width=0, fg ='#FF6200')
+            #afficher { "Les gagnant sont les " victoire } en police "Courrier" de taille 30 et de couleur 'orange'
+            monAffichage = Label(fenPrinc, text="Les gagnat sont les "+victoire,font=("Courrier",30), width=0, fg ='orange')
             monAffichage.pack()
-        
         #sinon
         else:
-
             #alors
-            #afficher #afficher "Égalité" en police courrier de taille 30 et de couleur '#FF6200' (orange) 
-            monAffichage = Label(fen_princ, text="Égalité",padx=50, font=("Courrier",30), width=0, fg ='#FF6200')
+            #afficher "Égalité" en police "Courrier" de taille 30 et de couleur 'orange' et un écart dans l'axe x de 50
+            monAffichage = Label(fenPrinc, text="Égalité",padx=50, font=("Courrier",30), width=0, fg ='orange')
             monAffichage.pack()
 
-        #créer un boutton réinitialiser avec comme texte "Réinitialiser" et qui invoque la fonction reinit et détruit la fen_princ
-        reinitialiser = Button(fen_princ, text="Réinitialiser", command=lambda:[reinit(),fen_princ.destroy()])
+        #créer un boutton réinitialiser avec comme texte "Réinitialiser" et qui invoque la fonction reinit et détruit la fenPrinc
+        reinitialiser = Button(fenPrinc, text="Réinitialiser", command=lambda:[reinit(),fenPrinc.destroy()])
         reinitialiser.pack()
-        
         #créer un boutton quitter avec comme texte "Quitter" et qui invoque la fonction quit
-        quitter = Button(fen_princ, text="Quitter", command=quit)
+        quitter = Button(fenPrinc, text="Quitter", command=quit)
         quitter.pack()
-
-    #écrire tableau dans le termiinal
-    print(tableau)
+    
 
 
 #définir la fonction afficher avec comme paramètre event
@@ -283,31 +232,24 @@ def afficher(event) :
     
     # si victoire est égal à "neutre"
     if victoire=="neutre":
-
         #alors
         #assigner la valeur de event.x à abcisse
         abscisse = event.x
         #assigner la valeur de event.y à ordonnee
         ordonnee = event.y
-        #assigner à cell la liste [int (abscisse / cell_size), int (ordonnee/cell_size)] (coordonnée de la cellule cliqué)
-        cell=[int (abscisse / cell_size), int (ordonnee/cell_size)]
-        #écrire abcisse,ordonne,cell dans le terminal
-        print (abscisse,ordonnee,cell)
-        #invoquer game avec les paramètre cell et tableau
-        game(cell,tableau)
+        #assigner à cell la liste [int (abscisse / cellSize), int (ordonnee/cellSize)] (coordonnée de la cellule cliqué)
+        cell=[int (abscisse / cellSize), int (ordonnee/cellSize)]
+        #invoquer game avec les paramètre cell
+        game(cell)
 
-#créer une fenêtre de longueur canvas_size et de largeur canvas_size
-canvas = tk.Canvas(root, width=canvas_size, height=canvas_size)
+#créer une fenêtre de longueur canvasSize et de largeur canvasSize
+canvas = tk.Canvas(root, width=canvasSize, height=canvasSize)
 #invoquer la fonction fenetre
 fenetre()
 #invoquer la fonction initTableau
 initTableau()
 canvas.pack()
 
-#afficher(tableau)
-print (tableau)
-#afficher tableAnalyse
-print (tableAnalyse)
-#invoquer la fonction afficher <Button-1> est cliqué (clique gauche)
+#invoquer la fonction afficher quand <Button-1> est cliqué (clique gauche)
 canvas.bind('<Button-1>', afficher)
 root.mainloop()
