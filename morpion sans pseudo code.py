@@ -29,6 +29,7 @@ def initTableau():
 
 
 
+
 def fenetre():
     
     for x in range(boardSize):
