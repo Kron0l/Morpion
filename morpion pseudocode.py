@@ -73,15 +73,14 @@
 
     #créer la liste winAnalyse contenant [0,0,0,0,0,0,0,0] (liste des analyses)
 
-    """analyse de chaque ligne"""
-    #faire la somme des cellules composant la première ligne du tableau et l'assigner à la première valeur de winAnalyse
-    #faire la somme des cellules composant la seconde ligne du tableau et l'assigner à la seconde valeur de winAnalyse
-    #faire la somme des cellules composant la troisième ligne du tableau et l'assigner à la troisième valeur de winAnalyse
-
     """analyse de chaque colonnes"""
-    #faire la somme des cellules composant la première colonne et l'assigner à la quatrième valeur de winAnalyse
-    #faire la somme des cellules composant la seconde colonne et l'assigner à la cinquième valeur de winAnalyse
-    #faire la somme des cellules composant la troisième colonne et l'assigner à la sixième valeur de winAnalyse
+    #pour x inférieur à 3
+        #alors
+        #faire la somme des cellules composant la colonnes x du tableau et l'assigner à la valeur x de winAnalyse
+
+    """analyse de chaque lignes"""
+    #pour x inférieur à 3
+    #faire la somme des cellules composant la lignes x et l'assigner à la valeur x+3 de winAnalyse
 
     """analyse de chaque diagonales"""
     #faire la somme des cellules composant la première diagonale et l'assigner à la septième valeur de winAnalyse

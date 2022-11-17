@@ -123,21 +123,18 @@ def analyse():
     #créer la liste winAnalyse contenant [0,0,0,0,0,0,0,0] (liste des analyses)
     winAnalyse = [0,0,0,0,0,0,0,0]
 
-    """analyse de chaque ligne"""
-    #faire la somme des cellules composant la première ligne du tableau et l'assigner à la première valeur de winAnalyse
-    winAnalyse[0] = sum(tableAnalyse[0])
-    #faire la somme des cellules composant la seconde ligne du tableau et l'assigner à la seconde valeur de winAnalyse
-    winAnalyse[1] = sum(tableAnalyse[1])
-    #faire la somme des cellules composant la troisième ligne du tableau et l'assigner à la troisième valeur de winAnalyse
-    winAnalyse[2] = sum(tableAnalyse[2])
-
     """analyse de chaque colonnes"""
-    #faire la somme des cellules composant la première colonne et l'assigner à la quatrième valeur de winAnalyse
-    winAnalyse[3] = tableAnalyse[0][0]+tableAnalyse[1][0]+tableAnalyse[2][0]
-    #faire la somme des cellules composant la seconde colonne et l'assigner à la cinquième valeur de winAnalyse
-    winAnalyse[4] = tableAnalyse[0][1]+tableAnalyse[1][1]+tableAnalyse[2][1]
-    #faire la somme des cellules composant la troisième colonne et l'assigner à la sixième valeur de winAnalyse
-    winAnalyse[5] = tableAnalyse[0][2]+tableAnalyse[1][2]+tableAnalyse[2][2]
+    #pour x inférieur à 3
+    for x in range(3) :
+        #alors
+        #faire la somme des cellules composant la colonnes x du tableau et l'assigner à la valeur x de winAnalyse
+        winAnalyse[x] = sum(tableAnalyse[x])
+
+    """analyse de chaque lignes"""
+    #pour x inférieur à 3
+    for x in range(3) : 
+    #faire la somme des cellules composant la lignes x et l'assigner à la valeur x+3 de winAnalyse
+        winAnalyse[x+3] = tableAnalyse[0][x]+tableAnalyse[1][x]+tableAnalyse[2][x]
 
     """analyse de chaque diagonales"""
     #faire la somme des cellules composant la première diagonale et l'assigner à la septième valeur de winAnalyse
