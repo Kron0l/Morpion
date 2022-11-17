@@ -2,7 +2,7 @@ import tkinter as tk
 
 root = tk.Tk()
 cell_size = 200
-board_size = 3
+board_size = 100
 canvas_size = cell_size * board_size
 flag=True
 
