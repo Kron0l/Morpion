@@ -122,9 +122,16 @@ def cpu():
         if tableAnalyse[1][1]==0:
                 cell=[1,1]
                 rond(cell)
-        else:
+        elif tableAnalyse[0][0] == 0 and tableAnalyse[2][0] == 0 and tableAnalyse[0][2] == 0 and tableAnalyse[2][2] == 0:
             cell=[random.choice([0,2]),random.choice([0,2])]
             rond(cell)
+        else:
+            l=random.randint(0,2)
+            c=random.randint(0,2)
+            if tableAnalyse[l][c] == 0:
+                cell=[l,c]
+                rond(cell)
+
 
     if possibleWin==0:
         for i in range(3):
@@ -189,10 +196,11 @@ def cpu():
 def game(cell):
 
     global victoire
-    analyse()
+    
     if  tableAnalyse[cell[0]][cell[1]]==0:
         croix(cell)
         cpu()
+        analyse()
     
 
 
