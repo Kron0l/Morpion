@@ -25,9 +25,11 @@ victoire="neutre"
 #créer tour contenant 0
 tour=0
 #assigner "red" à crossColor
-crossColor="red"
+crossColor="#ff4d00"
 #assigner "blue" à sphereColor
-sphereColor="blue"
+sphereColor="cyan"
+colorLine="white"
+colorBackground="black"
 
 
 
@@ -61,7 +63,8 @@ def fenetre():
                         x * cellSize,
                         y * cellSize + cellSize,
                         x * cellSize + cellSize,
-                        
+                        outline=colorLine,
+                        width=2
                     )
 
 
@@ -203,22 +206,33 @@ def game(cell):
         if victoire!="égalité":
             #alors
             #afficher { "Les gagnant sont les " victoire } en police "Courrier" de taille 30 et de couleur 'orange'
-            monAffichage = Label(fenPrinc, text="Les gagnat sont les "+victoire,font=("Courrier",30), width=0, fg ='orange')
+            monAffichage = Label(fenPrinc, text="Les gagnat sont les "+victoire,font=("Courrier",30), width=0, fg ='#4a4a4a')
             monAffichage.pack()
+            #créer un boutton réinitialiser avec comme texte "Réinitialiser" et qui invoque la fonction reinit et détruit la fenPrinc
+            reinitialiser = Button(fenPrinc, text="Réinitialiser",font=("Courrier",15), command=lambda:[reinit(),fenPrinc.destroy()])
+            reinitialiser.pack()
+            #créer un boutton quitter avec comme texte "Quitter" et qui invoque la fonction quit
+            quitter = Button(fenPrinc, text="Quitter",font=("Courrier",15), command=quit)
+            quitter.pack()
         #sinon
         else:
             #alors
             #afficher "Égalité" en police "Courrier" de taille 30 et de couleur 'orange' et un écart dans l'axe x de 50
-            monAffichage = Label(fenPrinc, text="Égalité",padx=50, font=("Courrier",30), width=0, fg ='orange')
-            monAffichage.pack()
-
-        #créer un boutton réinitialiser avec comme texte "Réinitialiser" et qui invoque la fonction reinit et détruit la fenPrinc
-        reinitialiser = Button(fenPrinc, text="Réinitialiser", command=lambda:[reinit(),fenPrinc.destroy()])
-        reinitialiser.pack()
-        #créer un boutton quitter avec comme texte "Quitter" et qui invoque la fonction quit
-        quitter = Button(fenPrinc, text="Quitter", command=quit)
-        quitter.pack()
+            monAffichage = Button(fenPrinc, text="É   g   a   l    i", font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0)
+            buttonX=Button(fenPrinc, text="t",font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0)
+            button = Button(fenPrinc, text="é", font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0)
+            monAffichage.grid(row=0,column=0)
+            buttonX.grid(row=0,column=1)
+            button.grid(row=0,column=2)
+            #créer un boutton réinitialiser avec comme texte "Réinitialiser" et qui invoque la fonction reinit et détruit la fenPrinc
+            reinitialiser = Button(fenPrinc, text="Réinitialiser",font=("Courrier",15), command=lambda:[reinit(),fenPrinc.destroy()])
+            reinitialiser.grid(row=1,column=0)
+            #créer un boutton quitter avec comme texte "Quitter" et qui invoque la fonction quit
+            quitter = Button(fenPrinc, text="Quitter",font=("Courrier",15), command=quit)
+            quitter.grid(row=1,column=1)
     
+
+        
 
 
 #définir la fonction afficher avec comme paramètre event
@@ -240,7 +254,7 @@ def afficher(event) :
         game(cell)
 
 #créer une fenêtre de longueur canvasSize et de largeur canvasSize
-canvas = tk.Canvas(root, width=canvasSize, height=canvasSize)
+canvas = tk.Canvas(root, width=canvasSize, height=canvasSize, background=colorBackground)
 #invoquer la fonction fenetre
 fenetre()
 #invoquer la fonction initTableau
