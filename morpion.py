@@ -25,11 +25,11 @@ victoire="neutre"
 #créer tour contenant 0
 tour=0
 #assigner "red" à crossColor
-crossColor="#ff4d00"
+crossColor="red"
 #assigner "blue" à sphereColor
-sphereColor="cyan"
-colorLine="white"
-colorBackground="black"
+sphereColor="blue"
+colorLine="black"
+colorBackground="white"
 
 
 
@@ -219,11 +219,11 @@ def game(cell):
             #alors
             #afficher "Égalité" en police "Courrier" de taille 30 et de couleur 'orange' et un écart dans l'axe x de 50
             monAffichage = Button(fenPrinc, text="É   g   a   l    i", font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0)
-            buttonX=Button(fenPrinc, text="t",font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0)
-            button = Button(fenPrinc, text="é", font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0)
+            buttonT=Button(fenPrinc, text="t",font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0,command=tron())
+            buttonE = Button(fenPrinc, text="é", font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0)
             monAffichage.grid(row=0,column=0)
-            buttonX.grid(row=0,column=1)
-            button.grid(row=0,column=2)
+            buttonT.grid(row=0,column=1)
+            buttonE.grid(row=0,column=2)
             #créer un boutton réinitialiser avec comme texte "Réinitialiser" et qui invoque la fonction reinit et détruit la fenPrinc
             reinitialiser = Button(fenPrinc, text="Réinitialiser",font=("Courrier",15), command=lambda:[reinit(),fenPrinc.destroy()])
             reinitialiser.grid(row=1,column=0)
@@ -232,7 +232,13 @@ def game(cell):
             quitter.grid(row=1,column=1)
     
 
-        
+def tron():
+    global colorBackground,crossColor,sphereColor,colorLine
+    crossColor="#ff4d00"
+    #assigner "blue" à sphereColor
+    sphereColor="cyan"
+    colorLine="white"
+    colorBackground="black"
 
 
 #définir la fonction afficher avec comme paramètre event
