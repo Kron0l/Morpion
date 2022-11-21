@@ -48,7 +48,7 @@ def initTableau():
 
 #définir la fonction fenêtre qui permet de remplir la fenêtre principale avec la grille de morpion
 def fenetre():
-    
+    canvas.create_rectangle(-1000,-1000,1000,1000,fill=colorBackground)
     #pour x de 0 à boardSize
     for x in range(boardSize):
 
@@ -66,6 +66,7 @@ def fenetre():
                         outline=colorLine,
                         width=2
                     )
+    
 
 
 #définir la fonction reinit servant à remettre les valeur à 0
@@ -219,8 +220,8 @@ def game(cell):
             #alors
             #afficher "Égalité" en police "Courrier" de taille 30 et de couleur 'orange' et un écart dans l'axe x de 50
             monAffichage = Button(fenPrinc, text="É   g   a   l    i", font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0)
-            buttonT=Button(fenPrinc, text="t",font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0,command=tron())
-            buttonE = Button(fenPrinc, text="é", font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0)
+            buttonT=Button(fenPrinc, text="t",font=("Courrier",30), relief='flat', fg ='#4a4a4a',padx=0,command=lambda:[tron(),fenPrinc.destroy()])
+            buttonE = Button(fenPrinc, text="é", font=("Courrier",30), relief='flat', fg ='#4a4a4a',command=lambda:[classic(),fenPrinc.destroy()])
             monAffichage.grid(row=0,column=0)
             buttonT.grid(row=0,column=1)
             buttonE.grid(row=0,column=2)
@@ -231,6 +232,13 @@ def game(cell):
             quitter = Button(fenPrinc, text="Quitter",font=("Courrier",15), command=quit)
             quitter.grid(row=1,column=1)
     
+def classic():
+    global colorBackground,crossColor,sphereColor,colorLine
+    crossColor="red"
+    sphereColor="blue"
+    colorLine="black"
+    colorBackground="white"
+    reinit()
 
 def tron():
     global colorBackground,crossColor,sphereColor,colorLine
@@ -239,6 +247,7 @@ def tron():
     sphereColor="cyan"
     colorLine="white"
     colorBackground="black"
+    reinit()
 
 
 #définir la fonction afficher avec comme paramètre event
@@ -259,6 +268,7 @@ def afficher(event) :
         #invoquer game avec les paramètre cell
         game(cell)
 
+
 #créer une fenêtre de longueur canvasSize et de largeur canvasSize
 canvas = tk.Canvas(root, width=canvasSize, height=canvasSize, background=colorBackground)
 #invoquer la fonction fenetre
@@ -266,7 +276,6 @@ fenetre()
 #invoquer la fonction initTableau
 initTableau()
 canvas.pack()
-
 #invoquer la fonction afficher quand <Button-1> est cliqué (clique gauche)
 canvas.bind('<Button-1>', afficher)
 root.mainloop()
