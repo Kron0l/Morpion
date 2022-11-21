@@ -76,6 +76,8 @@ def rond(cell):
     canvas.create_oval (cell[0] *cellSize+10, cell[1] * cellSize + 10, (cell[0] + 1) * cellSize - 10, (cell[1] + 1) * cellSize - 10, width = 5, outline=sphereColor)
     tableAnalyse[cell[0]][cell[1]]=-1
     tour=tour+1
+    print("j ai placé en",cell[0],cell[1])
+    
 
 
 
@@ -111,19 +113,20 @@ def analyse():
 
 
 def cpu():
-    possibleWin="neutre"
+    possibleWin=-1
+    possibleWin1=0
     winAnalyse=analyse()
     for i in range(8):
-        if winAnalyse[i] == (0-2):
-            possibleWin=i-1-2*i
-            print(i)
-            print(possibleWin)
-        elif winAnalyse[i] == 2:
+        if winAnalyse[i] == 2:
             possibleWin=i
-            
+            print (possibleWin)
+        elif winAnalyse[i] == (0-2):
+            possibleWin1=i-1-2*i
+            print(i)
+            print(possibleWin1)
             
 
-    if possibleWin=="neutre":
+    if possibleWin==-1 and possibleWin1==0 :
 
         if tableAnalyse[1][1]==0:
                 cell=[1,1]
@@ -145,50 +148,57 @@ def cpu():
                 rond(cell)
 
 
-    elif possibleWin<=-1:
-
-        if possibleWin==-1:
+    elif possibleWin1<=-1:
+        if possibleWin1==-1:
             for i in range(3):
                 if tableAnalyse[0][i]==0:
                     cell=[0,i]
                     rond(cell)
-        if possibleWin==-2:
+                    print(possibleWin)
+        if possibleWin1==-2:
             for i in range(3):
                 if tableAnalyse[1][i]==0:
                     cell=[1,i]
                     rond(cell)
-        if possibleWin==-3:
+                    print(possibleWin)
+        if possibleWin1==-3:
             for i in range(3):
                 if tableAnalyse[2][i]==0:
                     cell=[2,i] 
                     rond(cell)
+                    print(possibleWin)
 
-        if possibleWin==-4:
+        if possibleWin1==-4:
             for i in range(3):
                 if tableAnalyse[i][0]==0:
                     cell=[i,0]
                     rond(cell)
-        if possibleWin==-5:
+                    print(possibleWin)
+        if possibleWin1==-5:
             for i in range(3):
                 if tableAnalyse[i][1]==0:
                     cell=[i,1]
                     rond(cell)
-        if possibleWin==-6:
+                    print(possibleWin)
+        if possibleWin1==-6:
             for i in range(3):
                 if tableAnalyse[i][2]==0:
                     cell=[i,2]
                     rond(cell)
+                    print(possibleWin)
 
-        if possibleWin==-7:
+        if possibleWin1==-7:
             for i in range(3):
                 if tableAnalyse[i][i]==0:
                     cell=[i,i]
                     rond(cell)
-        if possibleWin==-8:
+                    print(possibleWin)
+        if possibleWin1==-8:
             for i in range(3):
                 if tableAnalyse[(i*(0-1)+2)][i]==0:
                     cell=[(i*(0-1)+2),i]
                     rond(cell)
+                    print(possibleWin)
 
 
     else:
@@ -198,43 +208,51 @@ def cpu():
                 if tableAnalyse[0][i]==0:
                     cell=[0,i]
                     rond(cell)
+                    print(possibleWin)
         if possibleWin==1:
             for i in range(3):
                 if tableAnalyse[1][i]==0:
                     cell=[1,i]
                     rond(cell)
+                    print(possibleWin)
         if possibleWin==2:
             for i in range(3):
                 if tableAnalyse[2][i]==0:
                     cell=[2,i]
                     rond(cell)
+                    print(possibleWin)
 
         if possibleWin==3:
             for i in range(3):
                 if tableAnalyse[i][0]==0:
                     cell=[i,0]
                     rond(cell)
+                    print(possibleWin)
         if possibleWin==4:
             for i in range(3):
                 if tableAnalyse[i][1]==0:
                     cell=[i,1]
                     rond(cell)
+                    print(possibleWin)
         if possibleWin==5:
             for i in range(3):
                 if tableAnalyse[i][2]==0:
                     cell=[i,2]
                     rond(cell)
+                    print(possibleWin)
 
         if possibleWin==6:
             for i in range(3):
                 if tableAnalyse[i][i]==0:
                     cell=[i,i]
                     rond(cell)
+                    print(possibleWin)
         if possibleWin==7:
             for i in range(3):
                 if tableAnalyse[(i*(0-1)+2)][i]==0:
                     cell=[(i*(0-1)+2),i]
                     rond(cell)
+                    print(possibleWin)
     
         
                 
