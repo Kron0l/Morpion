@@ -124,7 +124,7 @@ def cpu():
             possibleWin1=i-1-2*i
             print(i)
             print(possibleWin1)
-            
+        
 
     if possibleWin==-1 and possibleWin1==0 :
 
@@ -134,6 +134,29 @@ def cpu():
         elif tableAnalyse[0][0] == 0 and tableAnalyse[2][0] == 0 and tableAnalyse[0][2] == 0 and tableAnalyse[2][2] == 0:
             cell=[random.choice([0,2]),random.choice([0,2])]
             rond(cell)
+        elif winAnalyse[6] == 1 or winAnalyse[7]==1:
+
+            c=random.randint(0,3)
+            if c==0:
+                if tableAnalyse[0][1]==0:
+                    cell=[0,1]
+                    rond(cell)
+            elif c==1:
+                if tableAnalyse[2][1]==0:
+                    cell=[2,1]
+                    rond(cell)
+            elif c==2:
+                if tableAnalyse[1][0]==0:
+                    cell=[1,0]
+                    rond(cell)
+            else:
+                if tableAnalyse[1][2]==0:
+                    cell=[1,2]
+                    rond(cell)
+        elif (winAnalyse[i] for i in range (8))==-1:
+            for i in range(8):
+                if winAnalyse[i] == -1:
+                    possibleWin=i+8
         else:
             l=random.randint(0,2)
             c=random.randint(0,2)
@@ -201,7 +224,7 @@ def cpu():
                     print(possibleWin)
 
 
-    else:
+    elif possibleWin1>-1 and possibleWin<8:
 
         if possibleWin==0:
             for i in range(3):
@@ -253,7 +276,62 @@ def cpu():
                     cell=[(i*(0-1)+2),i]
                     rond(cell)
                     print(possibleWin)
-    
+        
+    else:
+        if possibleWin==8:
+            for i in range(3):
+                if tableAnalyse[0][i]==0:
+                    cell=[0,i]
+                    rond(cell)
+                    print(possibleWin)
+        if possibleWin==9:
+            for i in range(3):
+                if tableAnalyse[1][i]==0:
+                    cell=[1,i]
+                    rond(cell)
+                    print(possibleWin)
+        if possibleWin==10:
+            for i in range(3):
+                if tableAnalyse[2][i]==0:
+                    cell=[2,i]
+                    rond(cell)
+                    print(possibleWin)
+
+
+        if possibleWin==11:
+            for i in range(3):
+                if tableAnalyse[i][0]==0:
+                    cell=[i,0]
+                    rond(cell)
+                    print(possibleWin)
+        if possibleWin==12:
+            for i in range(3):
+                if tableAnalyse[i][1]==0:
+                    cell=[i,1]
+                    rond(cell)
+                    print(possibleWin)
+        if possibleWin==13:
+            for i in range(3):
+                if tableAnalyse[i][2]==0:
+                    cell=[i,2]
+                    rond(cell)
+                    print(possibleWin)
+
+
+        if possibleWin==14:
+            for i in range(3):
+                if tableAnalyse[i][i]==0:
+                    cell=[i,i]
+                    rond(cell)
+                    print(possibleWin)
+        if possibleWin==15:
+            for i in range(3):
+                if tableAnalyse[(i*(0-1)+2)][i]==0:
+                    cell=[(i*(0-1)+2),i]
+                    rond(cell)
+                    print(possibleWin)
+        
+
         
                 
     
